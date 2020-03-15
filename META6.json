@@ -1,0 +1,22 @@
+{
+  "name": "Raku::Highlight",
+  "description": "A pure Raku source code highlighter",
+  "version": "0.1",
+  "perl": "6.*",
+  "auth": "github::Altai-man",
+  "depends": [
+    "Perl6::Parser"
+  ],
+  "build-depends": [],
+  "test-depends": [],
+  "provides": {
+    "Raku::Highlight": "lib/Raku/Highlight.pm6",
+    "Raku::Highlight::Node": "lib/Raku/Highlight/Node.pm6",
+    "Raku::Highlight::Renderer": "lib/Raku/Highlight/Renderer.pm6",
+    "Raku::Highlight::Scheme": "lib/Raku/Highlight/Scheme.pm6",
+    "Raku::Highlight::Scheme::Default": "lib/Raku/Highlight/Scheme/Default.pm6"
+  },
+  "resources": [],
+  "license": "Artistic-2.0",
+  "source-url": "https://github.com/Altai-man/raku-highlight.git"
+}
