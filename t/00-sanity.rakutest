@@ -1,8 +1,8 @@
 use Raku::Highlight;
 use Test;
 
-my $program = "say 42;";
-
-say Raku::Highlight.highlight($program);
+is Raku::Highlight.highlight("say 42;"),
+        '<span style="color:FF4500">say</span> <span style="color:0000FF">42</span>;',
+        'Super simple highlighting is done!';
 
 done-testing;
