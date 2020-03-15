@@ -3,12 +3,10 @@ use Raku::Highlight::Renderer;
 use Raku::Highlight::Scheme::Default;
 use Raku::Highlight::Node;
 
-class Raku::Highlight::Internals {
-    has Perl6::Parser $.parser = Perl6::Parser.new;
-
+class Raku::Highlight {
     method highlight(Str $source, Raku::Highlight::Renderer :$renderer = Raku::Highlight::Renderer::HTML,
-                     :$schema = Raku::Highlight::Scheme::Default) {
-        my @token = $!parser.to-tokens-only($source);
+                     Raku::Highlight::Scheme :$schema = Raku::Highlight::Scheme::Default) {
+        my @token = Perl6::Parser.new.to-tokens-only($source);
         my $result;
         for @token -> $token {
             my $node = Raku::Highlight::Node.new:
@@ -17,12 +15,5 @@ class Raku::Highlight::Internals {
             $result ~= $renderer.render($node);
         }
         $result;
-    }
-}
-
-class Raku::Highlight {
-    method highlight(Str $source) {
-        my $internals = Raku::Highlight::Internals.new;
-        $internals.highlight($source);
     }
 }
