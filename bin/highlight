@@ -1,2 +1,17 @@
 #!/usr/bin/env perl6
 use Raku::Highlight;
+
+# possibly more to come here
+enum Render <HTML>;
+enum Schema <Default>;
+
+sub MAIN(Str $source, Render :$renderer = HTML, Schema :$schema = Default) {
+    my $r = do given $renderer {
+        when HTML { Raku::Highlight::Renderer::HTML }
+    }
+    my $s = do given $schema {
+        when Default { Raku::Highlight::Scheme::Default }
+    }
+
+    say Raku::Highlight.highlight($source, :renderer($r), :schema($s));
+}
