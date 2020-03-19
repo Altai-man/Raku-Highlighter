@@ -3,7 +3,7 @@
   "description": "A pure Raku source code highlighter",
   "version": "0.1",
   "perl": "6.*",
-  "auth": "github::Altai-man",
+  "auth": "github:Altai-man",
   "depends": [
     "Perl6::Parser"
   ],
