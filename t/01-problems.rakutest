@@ -1,0 +1,39 @@
+use Test;
+use Raku::Highlight;
+
+my $*CONSISTENCY-CHECK = True;
+my $*FALL-THROUGH      = True;
+
+my $code = Q[use JSON::Tiny;
+
+grammar IPv4 {
+    token TOP { <seg> ** 4 % '.' }
+    token seg { \d+ { 0 <= $/ <= 255 } }
+}
+
+# Find all IPv4 data sources and show them.
+my @data = from-json(slurp 'input.json');
+for @data.map(*<from>) -> $from {
+    if IPv4.parse($from) {
+        say "Address: $from";
+    }
+}
+];
+
+is Raku::Highlight.highlight($code), Q[<span style="color:000080">use</span> <span style="color:4B0082">JSON::Tiny</span>;
+
+<span style="color:000080">grammar</span> <span style="color:FF4500">IPv4</span> {
+    <span style="color:000080">token</span> <span style="color:FF4500">TOP</span> { <<span style="color:800080">seg</span>> <span style="color:8B0000">**</span> <span style="color:0000FF">4</span> <span style="color:8B0000">%</span> <span style="color:008000">'.'</span> }
+    <span style="color:000080">token</span> <span style="color:FF4500">seg</span> { <span style="color:008000">\d</span><span style="color:8B0000">+</span> { <span style="color:0000FF">0</span> <span style="color:8B0000"><=</span> <span style="color:800080">$/</span> <span style="color:8B0000"><=</span> <span style="color:0000FF">255</span> } }
+}
+
+<span style="color:808080"># Find all IPv4 data sources and show them.</span>
+<span style="color:000080">my</span> <span style="color:800080">@data</span> <span style="color:8B0000">=</span> <span style="color:FF4500">from-json</span>(<span style="color:FF4500">slurp</span> <span style="color:008000">'input.json'</span>);
+<span style="color:000080">for</span> <span style="color:800080">@data</span><span style="color:8B0000">.</span><span style="color:FF4500">map</span>(<span style="color:FF4500">*</span><<span style="color:FF4500">from</span>>) <span style="color:8B0000">-></span> <span style="color:800080">$from</span> {
+    <span style="color:000080">if</span> <span style="color:4B0082">IPv4</span><span style="color:8B0000">.</span><span style="color:FF4500">parse</span>(<span style="color:800080">$from</span>) {
+        <span style="color:FF4500">say</span> <span style="color:800080">"Address: $from"</span>;
+    }
+}
+], "Color problem 1 of 99 problems";
+
+done-testing;
